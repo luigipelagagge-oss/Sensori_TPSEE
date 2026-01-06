@@ -1,153 +1,30 @@
-<style>
-  /* --- STILE ALTO CONTRASTO (PER LIM e PROIEZIONE) --- */
-  
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px; /* Testo grande per leggere dal fondo */
-    line-height: 1.5;
-    color: #000000; /* Nero assoluto */
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* Sfondo bianco puro */
-  }
-
-  /* Titoli visibili anche con luce forte */
-  h1 {
-    color: #003366; /* Blu notte */
-    font-size: 2.2em;
-    border-bottom: 5px solid #003366;
-    padding-bottom: 15px;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-  }
-
-  h2 {
-    color: #cc0000; /* Rosso scuro */
-    font-size: 1.6em;
-    margin-top: 60px;
-    border-left: 15px solid #cc0000; /* Banda laterale molto visibile */
-    padding-left: 20px;
-    background-color: #fff0f0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  h3 {
-    color: #000;
-    font-size: 1.3em;
-    font-weight: 900;
-    margin-top: 40px;
-    text-decoration: underline;
-  }
-
-  /* Riquadri per i concetti chiave */
-  .box {
-    border: 4px solid #000; /* Cornice nera spessa */
-    padding: 30px;
-    margin-bottom: 40px;
-    background-color: #f8f8f8;
-  }
-
-  /* Tabelle ad alta leggibilità */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 0;
-    font-size: 1em;
-    page-break-inside: avoid;
-  }
-  th, td {
-    border: 3px solid #000; /* Griglia nera marcata */
-    padding: 15px;
-    text-align: left;
-  }
-  th {
-    background-color: #003366;
-    color: #ffffff;
-    font-size: 1.1em;
-  }
-  tr:nth-child(even) {
-    background-color: #eeeeee;
-  }
-
-  /* Immagini e didascalie */
-  img {
-    max-width: 80%;
-    height: auto;
-    display: block;
-    margin: 30px auto;
-    border: 4px solid #000;
-  }
-  .caption {
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #000;
-    background: #ffffcc; /* Evidenziatore giallo */
-    border: 2px solid #000;
-    display: table;
-    margin: 0 auto;
-    padding: 10px;
-  }
-
-  /* --- PULSANTI (NON visibili in stampa) --- */
-  .btn-container {
-    text-align: right;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 15px;
-  }
-  .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    border: 3px solid #000;
-    margin-left: 15px;
-    cursor: pointer;
-  }
-  .btn-print { background-color: #ff9900; color: #000; } /* Arancione */
-  .btn-nav { background-color: #003366; } /* Blu */
-  .btn:hover { background-color: #000; color: #fff; }
-
-  /* --- STAMPA PDF (Nasconde menu e adatta colori) --- */
-  @media print {
-    .btn-container, .btn, .btn-nav { display: none !important; }
-    body { font-size: 14pt; }
-    h2 { background-color: transparent !important; }
-    .box { page-break-inside: avoid; }
-  }
-</style>
+<link rel="stylesheet" href="./style.css">
 
 <div class="btn-container">
   <button class="btn btn-print" onclick="window.print()">🖨️ STAMPA PDF</button>
   <a href="./index.html" class="btn btn-nav">🏠 MENU</a>
 </div>
 
-# 1. TEORIA E CLASSIFICAZIONE
+# 1. Teoria e Classificazione
 
 <div class="box">
-  <p><strong>OBIETTIVO:</strong> Comprendere la struttura di una catena di misura e le differenze tra sensori primari/secondari e attivi/passivi.</p>
+  <strong>OBIETTIVO:</strong> Comprendere il funzionamento della catena di misura e distinguere le categorie di sensori secondo la normativa tecnica.
 </div>
 
 <div class="box">
   <h2>1. LA CATENA DI MISURA</h2>
-  <p>Ogni sistema di acquisizione dati trasforma una grandezza fisica in un numero.</p>
-  <p>Lo schema a blocchi fondamentale è:</p>
+  <p>Un sistema di misura è un insieme di elementi che trasformano una grandezza fisica in un segnale interpretabile (numerico o analogico).</p>
+  
+  <p>Lo schema a blocchi universale è:</p>
 
-  <center>
-    <img src="./catena-di-misura.png" alt="Schema a Blocchi">
-    <div class="caption">FIG. 1 - Schema della Catena di Misura</div>
-  </center>
+  <img src="./misura-generica.png" alt="Schema Catena di Misura" onerror="this.style.display='none'; alert('Immagine misura-generica.png non trovata!')">
+  <div class="caption">FIG. 1 - Struttura di una Catena di Acquisizione Dati</div>
 </div>
 
 <div class="box">
-  <h2>2. PRIMARI vs SECONDARI</h2>
-  <p>Classificazione basata sulla conversione fisica.</p>
-  
+  <h2>2. SENSORI PRIMARI E SECONDARI</h2>
+  <p>Questa classificazione dipende dal numero di conversioni energetiche interne al sensore.</p>
+
   <table>
     <tr>
       <th>TIPO</th>
@@ -156,62 +33,50 @@
     </tr>
     <tr>
       <td><strong>PRIMARI</strong></td>
-      <td>L'elemento sensibile tocca direttamente la grandezza fisica. Reazione immediata.</td>
-      <td><strong>Termocoppia</strong> (due fili immersi nel calore).</td>
+      <td>La grandezza fisica agisce direttamente sull'elemento sensibile (unica conversione).</td>
+      <td><strong>Termocoppia</strong>: Calore &rarr; Tensione Elettrica.</td>
     </tr>
     <tr>
       <td><strong>SECONDARI</strong></td>
-      <td>La grandezza fisica subisce <strong>trasformazioni intermedie</strong> prima di diventare segnale elettrico.</td>
-      <td><strong>Cella di Carico</strong> (Forza &rarr; Deformazione &rarr; Variazione Resistenza).</td>
+      <td>La misura avviene tramite stadi intermedi (es. meccanici prima che elettrici).</td>
+      <td><strong>Cella di Carico</strong>: Forza &rarr; Deformazione &rarr; Resistenza.</td>
     </tr>
   </table>
 </div>
 
 <div class="box">
-  <h2>3. ATTIVI vs PASSIVI</h2>
-  <p>Classificazione basata sull'energia elettrica.</p>
+  <h2>3. SENSORI ATTIVI E PASSIVI</h2>
+  <p>Indica se il componente necessita di una fonte di energia esterna per operare.</p>
 
   <h3>⚡ SENSORI ATTIVI (Generatori)</h3>
   <ul>
-    <li><strong>Non richiedono alimentazione esterna.</strong></li>
-    <li>Convertono direttamente l'energia fisica in elettricità.</li>
-    <li><em>Esempi: Termocoppie, Piezoelettrici, Dinamo Tachimetrica.</em></li>
+    <li>Sono autonomi: generano energia elettrica prelevandola direttamente dalla grandezza fisica.</li>
+    <li><em>Esempi: Piezoelettrici, Dinamo Tachimetriche, Termocoppie.</em></li>
   </ul>
 
-  <hr style="border: 2px dashed #000; margin: 30px 0;">
+  <hr style="border: 1px solid #ccc; margin: 30px 0;">
 
   <h3>🔋 SENSORI PASSIVI (Modulatori)</h3>
   <ul>
-    <li><strong>Richiedono alimentazione esterna (Batteria/Alimentatore).</strong></li>
-    <li>Il sensore varia la sua Resistenza (R), Capacità (C) o Induttanza (L).</li>
-    <li><em>Esempi: Termistori, Potenziometri, Strain Gauge.</em></li>
+    <li>Richiedono alimentazione esterna per funzionare (eccitazione).</li>
+    <li>Il sensore modifica un parametro elettrico (Resistenza, Capacità, Induttanza).</li>
+    <li><em>Esempi: Potenziometri, Termistori (PTC/NTC), Estensimetri.</em></li>
   </ul>
 
-  <center>
-    <img src="./cella-di-carico-ld5.jpg" alt="Cella di Carico">
-    <div class="caption">FIG. 2 - Cella di Carico (Passivo e Secondario)</div>
-  </center>
+  <img src="./cella-di-carico-ld5.jpg" alt="Esempio Cella di Carico">
+  <div class="caption">FIG. 2 - Cella di Carico (Trasduttore Passivo e Secondario)</div>
 </div>
 
 <div class="box">
-  <h2>4. METODI DI MISURA</h2>
+  <h2>4. METODI PER DEFLESSIONE E AZZERAMENTO</h2>
   
-  <h3>A. Metodo per DEFLESSIONE</h3>
-  <p>L'indice dello strumento si sposta su una scala.</p>
-  <ul>
-    <li><strong>Vantaggio:</strong> Lettura immediata.</li>
-    <li><strong>Svantaggio:</strong> Assorbe energia dal sistema (meno preciso).</li>
-    <li><em>Esempio: Multimetro analogico.</em></li>
-  </ul>
-
-  <h3>B. Metodo per AZZERAMENTO (Null)</h3>
-  <p>Si bilancia il sistema finché la differenza è ZERO.</p>
-  <ul>
-    <li><strong>Vantaggio:</strong> Altissima precisione (errore nullo all'equilibrio).</li>
-    <li><strong>Svantaggio:</strong> Lento, serve tempo per bilanciare.</li>
-    <li><em>Esempio: Ponte di Wheatstone.</em></li>
-  </ul>
+  <p><strong>Metodo per Deflessione:</strong> Il valore è indicato dallo spostamento di un indice su una scala (o un valore digitale diretto). È rapido ma meno preciso.</p>
+  
+  <p><strong>Metodo per Azzeramento:</strong> Si confronta la misura con un campione noto finché la differenza è nulla. È lentissimo ma estremamente preciso (es. Bilancia a due piatti o Ponte di Wheatstone).</p>
 </div>
 
-<br><br>
-<a href="./index.html" class="btn btn-nav" style="display:block; text-align:center;">⬅ TORNA AL MENU</a>
+<br>
+<center>
+  <a href="./index.html" class="btn btn-nav">⬅ TORNA AL MENU PRINCIPALE</a>
+</center>
+<br>
