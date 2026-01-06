@@ -1,88 +1,69 @@
 # U.D. 2.4 - Sensori di Temperatura
 
 ## Obiettivi (TPSEE)
-Analizzare le diverse tecnologie di trasduzione termica per effettuare la scelta ottimale del componente in base a:
-1.  **Linearità** (NTC vs LM35).
-2.  **Range operativo** (Semiconduttori vs Termocoppie).
-3.  **Condizionamento del segnale** (Partitori vs Amplificatori).
+In questa unità impareremo a **selezionare il sensore termico corretto** analizzando le specifiche tecniche di tre tecnologie principali: Resistiva, a Semiconduttore e Termoelettrica.
 
 ---
 
-## 1. I Termistori (NTC e PTC)
-Sono resistori termosensibili realizzati con ossidi metallici sinterizzati. Sono sensori **passivi** (richiedono alimentazione).
+## 1. I Termistori (NTC) - Economici ma Non Lineari
+Gli NTC (*Negative Temperature Coefficient*) sono resistori che diminuiscono la loro resistenza quando si scaldano.
 
-* **NTC (Negative Temperature Coefficient):** La resistenza diminuisce all'aumentare della temperatura.
-* **PTC (Positive Temperature Coefficient):** La resistenza aumenta all'aumentare della temperatura.
+### Analisi della Caratteristica
+Guardando il grafico, notiamo che la variazione non è una linea retta, ma una curva esponenziale.
 
-### La curva caratteristica
-Il problema principale dell'NTC in fase di progettazione è la sua forte **non-linearità**.
+![Curva caratteristica NTC](curva-ntc.jpg.png)
+*Figura 1: La risposta di un NTC. Nota come la sensibilità sia alta a freddo e bassa a caldo.*
 
-![Curva Caratteristica NTC](curva-ntc.jpg)
-*Figura 1: Risposta esponenziale di un NTC. A basse temperature la sensibilità è alta, ad alte temperature si appiattisce.*
-
-La legge matematica semplificata (modello $\beta$) è:
-$$R(T) = R_0 \cdot e^{\beta (\frac{1}{T} - \frac{1}{T_0})}$$
-
-Dove $T$ è la temperatura in Kelvin.
+Questo comporta una difficoltà progettuale:
+* **Vantaggio:** Costano pochissimo (pochi centesimi).
+* **Svantaggio:** Serve una formula complessa (Steinhart-Hart) o una tabella (Look-up table) nel microcontrollore per leggere la temperatura corretta.
 
 ---
 
-## 2. Sensori Integrati (LM35)
-Per semplificare il design elettronico, si utilizzano sensori a semiconduttore che integrano al loro interno il circuito di linearizzazione.
+## 2. Sensori Integrati (LM35) - Precisione Lineare
+L'LM35 è un circuito integrato progettato per semplificare la vita al progettista.
 
-![Pinout LM35](lm35-pinout.jpg)
-*Figura 2: L'LM35 è calibrato in gradi Celsius e ha un'uscita lineare.*
+![Schema piedini LM35](lm35-pinout.jpg.png)
+*Figura 2: L'LM35 ha 3 pin e fornisce un'uscita già calibrata.*
 
-* **Vantaggio:** Uscita lineare di **10 mV/°C**.
-* **Formula:** $V_{out} = 0.01 \cdot T(°C)$.
-* **Esempio:** A 25°C leggiamo esattamente 250mV (0.25V). Non servono calcoli complessi.
+### Perché sceglierlo (Datasheet)
+* **Linearità:** L'uscita è di **10 mV per ogni grado Celsius**.
+* **Calcolo:** Semplice legge matematica: $T(°C) = V_{out} / 0.01$.
+* **Esempio:** Se leggo 0.25V col multimetro, sono esattamente 25°C.
 
 ---
 
-## 3. Le Termocoppie (Per alte temperature)
-Quando dobbiamo misurare temperature sopra i 150°C (forni, motori), i semiconduttori bruciano. Si usano le termocoppie.
+## 3. Le Termocoppie - Per Ambienti Estremi
+Sia gli NTC che gli LM35 fondono sopra i 150°C. Per misurare i fumi di un camino o un forno (400°C - 1000°C) si usano le Termocoppie.
 
 ### Effetto Seebeck
-Se uniamo due metalli diversi (es. Chromel e Alumel per la Tipo K) e scaldiamo la giunzione, si genera una piccolissima differenza di potenziale.
+Il principio è fisico, non elettronico: unendo due metalli diversi (es. Chromel e Alumel) si genera una piccolissima tensione proporzionale al calore.
 
-![Effetto Seebeck Schema](termocoppia-schema.jpg)
-*Figura 3: Principio fisico della termocoppia.*
+![Schema principio Termocoppia](termocoppia-schema.jpg.png)
+*Figura 3: La giunzione calda genera una differenza di potenziale (mV).*
 
-> **Nota di Progetto:** Il segnale è dell'ordine dei microvolt ($\mu V$). È obbligatorio usare un amplificatore di precisione (strumentale) prima di collegarlo a un microcontrollore.
+> **Nota Tecnica:** Il segnale è debolissimo (microvolt). È obbligatorio usare un amplificatore operazionale di precisione per leggerlo con Arduino.
 
 ---
 
-## 4. Laboratorio: Linearizzazione Software NTC
-*Obiettivo: Acquisire un sensore non lineare (NTC) e renderlo leggibile tramite software.*
+## 4. Esercitazione Pratica
+**Obiettivo:** Realizzare un termometro digitale con LM35 e Arduino.
 
-**Schema Elettrico:** Partitore di tensione con NTC verso massa e Resistenza da 10k$\Omega$ verso i 5V.
-
-**Codice Arduino:**
-Utilizzeremo l'equazione di Steinhart-Hart semplificata (Parametro Beta).
-
+**Codice Sorgente:**
 ```cpp
-const int sensorPin = A0;
-const float beta = 3950; // Valore tipico dal datasheet NTC
-const float R_serie = 10000; // Resistenza del partitore (10k)
+const int sensorPin = A0; // Pin dove colleghi l'uscita dell'LM35
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  int valADC = analogRead(sensorPin);
+  int reading = analogRead(sensorPin);  
+  float voltage = reading * (5.0 / 1023.0);
+  float temperatureC = voltage * 100; 
   
-  // 1. Calcolo della Resistenza attuale dell'NTC (Legge di Ohm sul partitore)
-  // V_out = V_in * R_ntc / (R_serie + R_ntc) -> Formula inversa:
-  float R_ntc = R_serie / (1023.0 / valADC - 1);
-  
-  // 2. Linearizzazione (Formula del parametro Beta)
-  float temperaturaK = 1 / (log(R_ntc / 10000.0) / beta + 1.0 / 298.15);
-  float temperaturaC = temperaturaK - 273.15;
-  
-  Serial.print("Temp: ");
-  Serial.print(temperaturaC);
+  Serial.print("Temperatura: ");
+  Serial.print(temperatureC);
   Serial.println(" C");
-  
-  delay(500);
+  delay(1000);
 }
