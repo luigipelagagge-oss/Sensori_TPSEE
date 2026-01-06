@@ -8,6 +8,7 @@ Clicca sui link per accedere alle lezioni:
 * [U.D. 2.2 - Sensori di Posizione](ud-2-2-posizione.md)
 * [U.D. 2.3 - Sensori di Velocità](ud-2-3-velocita.md)
 * [U.D. 2.4 - Sensori di Temperatura](ud-2-4-temperatura.md)
+* [U.D. 2.5 - Sensori di Peso e Deformazione](ud-2-5-peso.md)
 
 ---
 
