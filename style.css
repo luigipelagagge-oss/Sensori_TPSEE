@@ -1,99 +1,114 @@
-/* FILE: style.css */
+/* --- FILE DI STILE UNIFICATO PER LIM E STAMPA --- */
 
-/* --- STILE MODERNO E LEGGIBILE (LIM/TV) --- */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 22px;
-  line-height: 1.6;
-  color: #333;
-  max-width: 95%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f4f7f6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 24px; /* Ottimizzato per lettura da fondo aula */
+    line-height: 1.6;
+    color: #222;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f0f4f8;
 }
 
-/* Intestazioni */
+/* Titoli ad alto contrasto */
 h1 {
-  color: #2c3e50;
-  border-bottom: 3px solid #3498db;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
+    color: #003366;
+    font-size: 2.5em;
+    border-bottom: 6px solid #003366;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
 h2 {
-  color: #2980b9;
-  margin-top: 40px;
-  font-weight: 600;
+    color: #cc0000;
+    font-size: 1.8em;
+    margin-top: 50px;
+    border-left: 12px solid #cc0000;
+    padding-left: 20px;
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 3px 3px 0px #ccc;
 }
 
-/* Schede (Box) */
+/* Contenitori concettuali (Card) */
 .box {
-  background-color: #ffffff;
-  padding: 30px;
-  margin-bottom: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border-left: 6px solid #3498db;
+    background-color: #ffffff;
+    padding: 35px;
+    margin-bottom: 40px;
+    border-radius: 4px;
+    border: 2px solid #333; /* Bordo netto per visibilità LIM */
+    box-shadow: 8px 8px 0px #003366; /* Ombra netta, stile tecnico */
 }
 
-/* Tabelle */
+/* Tabelle professionali */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 0.9em;
-  background: white;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    background: white;
 }
 th {
-  background-color: #3498db;
-  color: white;
-  padding: 15px;
-  text-align: left;
+    background-color: #003366;
+    color: white;
+    padding: 18px;
+    text-align: left;
+    border: 2px solid #333;
 }
 td {
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
+    border: 2px solid #333;
+    padding: 18px;
 }
-tr:hover { background-color: #f1f1f1; }
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-/* Immagini */
+/* Immagini e Didascalie */
 img {
-  max-width: 80%;
-  height: auto;
-  display: block;
-  margin: 20px auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 30px auto;
+    border: 3px solid #000;
 }
 .caption {
-  text-align: center;
-  font-size: 0.8em;
-  color: #666;
-  font-style: italic;
-  margin-top: 10px;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #000;
+    background: #ffff00; /* Giallo evidenziatore per didascalie */
+    padding: 10px;
+    border: 2px solid #000;
+    display: table;
+    margin: 0 auto;
 }
 
-/* Pulsanti */
-.btn-container { text-align: right; margin-bottom: 20px; }
+/* Pulsantiera di navigazione */
+.btn-container {
+    text-align: right;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+}
 .btn {
-  display: inline-block;
-  padding: 12px 25px;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 18px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
-  border: none;
-  cursor: pointer;
+    display: inline-block;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    border: 3px solid #000;
+    cursor: pointer;
+    margin-left: 15px;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn-print { background-color: #f39c12; color: white; margin-right: 10px; }
-.btn-nav { background-color: #2c3e50; color: white; }
+.btn-print { background-color: #ffa500; color: #000; }
+.btn-nav { background-color: #003366; color: #fff; }
+.btn:hover { filter: brightness(1.2); }
 
-/* Stampa */
+/* Regole specifiche per la STAMPA PDF */
 @media print {
-  .btn-container { display: none; }
-  body { background-color: white; font-size: 14pt; }
-  .box { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    .btn-container, .btn { display: none !important; }
+    body { background-color: white; font-size: 14pt; padding: 0; }
+    .box { box-shadow: none; border: 1px solid #000; page-break-inside: avoid; }
+    h2 { border-left: 5px solid #cc0000; box-shadow: none; }
 }
