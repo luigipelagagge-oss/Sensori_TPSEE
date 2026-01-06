@@ -11,7 +11,7 @@ La dinamo tachimetrica è un trasduttore attivo reversibile: tecnicamente è un 
 ### Caratteristica di Trasferimento
 Per il dimensionamento di un sistema di controllo, è fondamentale analizzare la caratteristica statica $V_{out} / n$.
 
-![Grafico tensione-velocità dinamo tachimetrica](grafico-dinamo.jpg)
+![Grafico tensione-velocità dinamo tachimetrica](grafico-dinamo.png)
 *Figura 1: La linearità della risposta permette un controllo analogico semplice.*
 
 La legge fisica è:
