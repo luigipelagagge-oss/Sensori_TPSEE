@@ -1,112 +1,81 @@
 # U.D. 2.2 - Sensori di Posizione e Spostamento
 
 ## Obiettivi
-In questa unità imparerai a distinguere e utilizzare i principali sensori per rilevare la posizione di un oggetto:
+In questa unità analizzeremo come trasdurre una posizione fisica in segnale elettrico, utilizzando simulatori per verificare la teoria.
+Argomenti:
 1.  **Potenziometri** (Resistivi)
 2.  **LVDT** (Induttivi)
-3.  **Encoder Ottici** (Digitali)
+3.  **Encoder** (Digitali)
 
 ---
 
-## 1. Potenziometri (Sensori Resistivi)
-È la soluzione più semplice ed economica. Un cursore striscia su una pista resistiva variando la resistenza in base alla posizione.
+## 1. Il Potenziometro come Sensore
+Già utilizzato in **Elettrotecnica** come regolatore, in sensoristica il potenziometro è il trasduttore di posizione angolare o lineare più comune ed economico.
 
-### Principio di funzionamento
-Il potenziometro agisce come un **partitore di tensione variabile**.
+### Il richiamo ai Sistemi Automatici
+Il potenziometro agisce come un **trasduttore di posizione a uscita analogica**.
+Lo schema equivalente è un partitore di tensione. La funzione di trasferimento è lineare:
 
-Se applichiamo una tensione $V_{in}$ ai capi della resistenza totale $R_{tot}$, la tensione in uscita $V_{out}$ prelevata dal cursore dipende dallo spostamento $x$:
+$$V_{out} = V_{cc} \cdot \alpha$$
 
-$$V_{out} = V_{in} \cdot \frac{x}{L}$$
-
-Dove:
-* $x$ = spostamento del cursore.
-* $L$ = lunghezza totale della pista resistiva.
-
-> **Nota:** Il problema principale dei potenziometri è l'usura meccanica dovuta all'attrito del cursore.
+Dove $\alpha$ (alfa) è la percentuale di rotazione dell'albero (da 0 a 1).
 
 ---
 
-## 2. LVDT (Trasformatore Differenziale Variabile Lineare)
-L'LVDT (*Linear Variable Differential Transformer*) è un sensore **induttivo** molto preciso e privo di attrito (non c'è contatto elettrico strisciante).
+## 2. Laboratorio Virtuale: Tinkercad
+*Prerequisiti: Account Autodesk Tinkercad, conoscenze base Arduino.*
 
+Poiché conoscete già Arduino dai corsi di Robotica, utilizzeremo il simulatore per creare un sistema di lettura posizione.
 
+### Esercitazione: "Dalla posizione alla variabile"
 
-### Come funziona
-È composto da:
-* Un avvolgimento primario (alimentato in AC).
-* Due avvolgimenti secondari collegati in opposizione serie.
-* Un nucleo ferromagnetico mobile.
+**Obiettivo:** Leggere la posizione di un potenziometro (ingresso) e muovere un servomotore (uscita) nella stessa posizione.
 
-Quando il nucleo è al centro, le tensioni indotte si annullano ($V_{out} = 0$). Spostando il nucleo, si crea uno squilibrio che genera una tensione proporzionale allo spostamento.
+**Componenti necessari su Tinkercad:**
+* Arduino Uno R3
+* Potenziometro (collegato al pin A0)
+* Micro Servo (collegato al pin 9 PWM)
 
-**Vantaggi:** Vita operativa quasi infinita, altissima risoluzione.
+**Schema logico:**
+Il convertitore ADC di Arduino legge una tensione 0-5V e restituisce un numero intero **0-1023** (10 bit).
+Il Servo accetta un comando in gradi **0-180**.
 
----
+Dobbiamo "mappare" questi due intervalli.
 
-## 3. Encoder Ottici (Sensori Digitali)
-Gli encoder convertono un movimento angolare in impulsi digitali. Sono fondamentali nella robotica moderna.
-
-
-
-Esistono due famiglie principali:
-
-| Caratteristica | Encoder Incrementale | Encoder Assoluto |
-| :--- | :--- | :--- |
-| **Uscita** | Treni di impulsi (Onda quadra) | Codice binario (es. Gray) |
-| **Memoria** | Perde la posizione se manca corrente | Mantiene la posizione assoluta |
-| **Costo** | Basso | Alto |
-| **Utilizzo** | Velocità motori, mouse, manopole volume | Bracci robotici, CNC |
-
----
-
-## 4. Laboratorio Interattivo: Encoder Incrementale
-Proviamo a gestire un Encoder rotativo standard (KY-040) con un microcontrollore. L'encoder ha due uscite, **CLK (A)** e **DT (B)**, sfasate di 90°.
-
-### Logica di lettura
-Per capire la direzione:
-* Se l'uscita A cambia stato e B è uguale ad A -> **Senso Orario**.
-* Se l'uscita A cambia stato e B è diverso da A -> **Senso Antiorario**.
-
-### Codice Arduino (Interrupt)
-L'uso degli *interrupt* garantisce di non perdere passi anche se il microcontrollore è occupato.
+### Codice Sorgente (C++)
+Copia questo codice nella sezione "Codice -> Testo" di Tinkercad:
 
 ```cpp
-#define CLK 2  // Pin Interrupt
-#define DT  3
+#include <Servo.h>
 
-volatile int contatore = 0;
-int statoCorrenteCLK;
-int ultimoStatoCLK;
+Servo mioServo;  // Oggetto Servo (concetto di Robotica)
+
+const int potPin = A0; // Pin analogico input
+int potValue = 0;      // Valore letto (0-1023)
+int angle = 0;         // Angolo calcolato (0-180)
 
 void setup() {
-  pinMode(CLK, INPUT);
-  pinMode(DT, INPUT);
+  mioServo.attach(9); 
   Serial.begin(9600);
-  
-  // Legge lo stato iniziale
-  ultimoStatoCLK = digitalRead(CLK);
-  
-  // Attiva l'interrupt sul pin 2 (CLK) al cambio di stato
-  attachInterrupt(digitalPinToInterrupt(CLK), aggiornaEncoder, CHANGE);
 }
 
 void loop() {
-  Serial.print("Posizione: ");
-  Serial.println(contatore);
-  delay(100);
-}
-
-void aggiornaEncoder() {
-  statoCorrenteCLK = digitalRead(CLK);
+  // 1. Acquisizione (Sensore di posizione)
+  potValue = analogRead(potPin);
   
-  // Se lo stato è cambiato, c'è stato un movimento
-  if (statoCorrenteCLK != ultimoStatoCLK  && statoCorrenteCLK == 1){
-    // Se DT è diverso da CLK, ruota in senso orario
-    if (digitalRead(DT) != statoCorrenteCLK) {
-      contatore++;
-    } else {
-      contatore--;
-    }
-  }
-  ultimoStatoCLK = statoCorrenteCLK;
+  // 2. Elaborazione (Condizionamento segnale)
+  // La funzione map() è fondamentale nei sistemi di controllo
+  // Sintassi: map(valore, min_in, max_in, min_out, max_out)
+  angle = map(potValue, 0, 1023, 0, 180);
+  
+  // 3. Attuazione
+  mioServo.write(angle);
+  
+  // Debug seriale
+  Serial.print("ADC: ");
+  Serial.print(potValue);
+  Serial.print(" | Gradi: ");
+  Serial.println(angle);
+  
+  delay(15); // Piccola pausa per stabilità meccanica
 }
