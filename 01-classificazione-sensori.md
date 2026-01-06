@@ -5,79 +5,87 @@
   <a href="./index.html" class="btn btn-nav">🏠 MENU</a>
 </div>
 
-# 1. Teoria e Classificazione
+# 1. Teoria e Classificazione dei Sensori
 
 <div class="box">
-  <h2>SENSORE vs TRASDUTTORE: Facciamo chiarezza</h2>
-  <p>Spesso usati come sinonimi, hanno in realtà ruoli distinti nella catena:</p>
+  <h2>SENSORE vs TRASDUTTORE</h2>
+  <p>Prima di classificare, distinguiamo i componenti:</p>
   <ul>
-    <li><strong>Sensore:</strong> È l'elemento primario che "sente" la variazione della grandezza fisica (es. la lamina che si scalda).</li>
-    <li><strong>Trasduttore:</strong> È il dispositivo completo che <strong>converte</strong> l'energia della grandezza misurata in un'altra forma (solitamente un segnale elettrico).</li>
+    <li><strong>Sensore:</strong> L'elemento sensibile che interagisce con la grandezza (es. la membrana di un microfono).</li>
+    <li><strong>Trasduttore:</strong> Il sistema completo che trasforma l'energia fisica in segnale elettrico.</li>
   </ul>
-  <p><em>In breve: Il sensore è il "naso", il trasduttore è l'intero sistema che traduce l'odore in un segnale elettrico per il computer.</em></p>
 </div>
 
 <div class="box">
   <h2>1. LA CATENA DI MISURA</h2>
-  <p>Lo schema a blocchi universale che trasforma una grandezza fisica in un segnale interpretabile:</p>
-
+  <p>Lo schema che porta dalla realtà fisica al dato numerico:</p>
+  
   <img src="./misura-generica.png" alt="Schema Catena di Misura" onerror="this.style.display='none';">
-  <div class="caption">FIG. 1 - Struttura di una Catena di Acquisizione Dati</div>
+  <div class="caption">FIG. 1 - Blocchi funzionali: Sensore -> Condizionamento -> ADC</div>
 </div>
 
 <div class="box">
   <h2>2. CLASSIFICAZIONE PER SEGNALE IN USCITA</h2>
-  <p>Questo criterio riguarda la natura del segnale che inviamo al sistema di controllo.</p>
-
   <table>
     <tr>
       <th>TIPO</th>
       <th>DESCRIZIONE</th>
-      <th>CARATTERISTICHE</th>
+      <th>ESEMPI PRATICI</th>
     </tr>
     <tr>
-      <td><strong>I) ANALOGICI</strong></td>
-      <td>Il segnale di uscita varia con <strong>continuità</strong> seguendo fedelmente la variabile fisica.</td>
-      <td>Tensione (V) o Corrente (mA) variabili nel tempo.</td>
+      <td><strong>ANALOGICI</strong></td>
+      <td>Segnale continuo (V o mA) proporzionale alla grandezza.</td>
+      <td>Potenziometro, LM35 (Temp).</td>
     </tr>
     <tr>
-      <td><strong>II) DIGITALI</strong></td>
-      <td>Forniscono il valore tramite un <strong>codice binario</strong> a n bit.</td>
-      <td>Segnale discreto, immune ai disturbi (es. <strong>Encoder</strong>).</td>
+      <td><strong>DIGITALI</strong></td>
+      <td>Segnale discreto (livelli logici 0-1 o codice binario).</td>
+      <td>Encoder rotativo, Sensore Hall.</td>
     </tr>
   </table>
+  
+  <img src="./analogico-vs-digitale.png" alt="Segnale Analogico vs Digitale">
+  <div class="caption">FIG. 2 - Differenza tra segnale continuo e discreto</div>
 </div>
 
 <div class="box">
-  <h2>3. SENSORI PRIMARI E SECONDARI</h2>
-  <p>Dipende dal numero di conversioni interne.</p>
-  <ul>
-    <li><strong>PRIMARI:</strong> Unica conversione (es. Termocoppia: Calore &rarr; Tensione).</li>
-    <li><strong>SECONDARI:</strong> Conversioni intermedie (es. Cella di Carico: Forza &rarr; Deformazione &rarr; Resistenza).</li>
-  </ul>
-</div>
-
-<div class="box">
-  <h2>4. SENSORI ATTIVI E PASSIVI</h2>
+  <h2>3. CLASSIFICAZIONE PER ALIMENTAZIONE (Energetica)</h2>
   
   <h3 style="color:#27ae60">⚡ SENSORI ATTIVI (Generatori)</h3>
-  <p>Generano energia elettrica direttamente dalla grandezza fisica. Non serve alimentazione esterna.</p>
-  <p><em>Esempi: Piezoelettrici, Dinamo, Termocoppie.</em></p>
-
-  <hr>
+  <p>Non richiedono alimentazione esterna. Generano tensione sfruttando fenomeni fisici.</p>
+  <ul>
+    <li><strong>Esempi:</strong> Termocoppie (Effetto Seebeck), Piezoelettrici (Effetto piezo).</li>
+  </ul>
 
   <h3 style="color:#c0392b">🔋 SENSORI PASSIVI (Modulatori)</h3>
-  <p>Richiedono una sorgente di energia esterna (alimentazione). Variano un parametro elettrico.</p>
-  <p><em>Esempi: Potenziometri, NTC/PTC, Estensimetri.</em></p>
-
-  <img src="./cella-di-carico-ld5.jpg" alt="Esempio Cella di Carico">
-  <div class="caption">FIG. 2 - La Cella di Carico è un esempio di trasduttore Passivo</div>
+  <p>Richiedono alimentazione esterna. Variano una caratteristica elettrica (R, L, C).</p>
+  <ul>
+    <li><strong>Esempi:</strong> Fotoresistenze (LDR), Estensimetri, Termistori (NTC/PTC).</li>
+  </ul>
+  
+  <img src="./cella-di-carico-ld5.jpg" alt="Esempio Sensore Passivo">
+  <div class="caption">FIG. 3 - Cella di Carico: necessita di alimentazione per leggere la variazione di R</div>
 </div>
 
 <div class="box">
-  <h2>5. METODI DI MISURA</h2>
-  <p><strong>Deflessione:</strong> Lettura rapida su scala (meno preciso).</p>
-  <p><strong>Azzeramento:</strong> Confronto con campione noto (massima precisione, es. Ponte di Wheatstone).</p>
+  <h2>4. MODALITÀ DI CONTATTO</h2>
+  <ul>
+    <li><strong>A CONTATTO:</strong> Il sensore deve toccare l'oggetto (es. sonda di temperatura a immersione, estensimetro).</li>
+    <li><strong>SENZA CONTATTO (Prossimità):</strong> Rilevamento a distanza (es. Ultrasuoni, Infrarossi, Radar).</li>
+  </ul>
+  
+  
+</div>
+
+<div class="box">
+  <h2>5. PRINCIPI FISICI DI FUNZIONAMENTO</h2>
+  <p>In base a cosa cambia all'interno del sensore:</p>
+  <ul>
+    <li><strong>Resistivi:</strong> Varia la Resistenza (R). <em>Es: potenziometro, LDR.</em></li>
+    <li><strong>Capacitivi:</strong> Varia la Capacità (C). <em>Es: sensori di umidità.</em></li>
+    <li><strong>Induttivi:</strong> Varia l'Induttanza (L). <em>Es: sensori di posizione metallici.</em></li>
+    <li><strong>Termoelettrici:</strong> Generano tensione per calore. <em>Es: Termocoppie.</em></li>
+  </ul>
 </div>
 
 <br>
