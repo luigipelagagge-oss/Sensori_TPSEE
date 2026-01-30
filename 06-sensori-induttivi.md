@@ -52,12 +52,16 @@ Una distinzione critica per l'installazione è il tipo di schermatura, ben visib
 > * Scegli **Non-Flush** solo se puoi garantire una zona libera attorno, per avere più portata.
 
 ### 5. Il Problema dei Materiali (Fattore di Riduzione)
-Non tutti i metalli vengono "visti" allo stesso modo. L'acciaio è il riferimento (100%).
+La distanza di rilevamento nominale ($S_n$) è calcolata su un target standard in **Acciaio (Fe 360)**. Tuttavia, il sensore si comporta diversamente in base alla famiglia del metallo:
 
 ![Grafico Fattori di Riduzione](./fattore-riduzione.png)
-*Fig. 4: Riduzione della distanza di lettura per Alluminio e Rame rispetto all'Acciaio.*
+*Fig. 4: I metalli non ferrosi riducono drasticamente la distanza di lettura.*
 
-Per risolvere questo problema esistono i sensori **Fattore 1**, che utilizzano bobine speciali (senza nucleo in ferrite) per leggere tutti i metalli alla stessa distanza massima.
+* **Metalli Ferrosi (Acciaio):** Il sensore legge al 100% della distanza dichiarata (Fattore 1.0).
+* **Metalli Non Ferrosi (Alluminio, Rame):** Pur essendo conduttori, non sono magnetici. Il sensore fatica a indurre le correnti e la distanza di rilevamento crolla al **30-40%** del valore nominale.
+    * *Esempio:* Un sensore da 10mm leggerà l'alluminio solo a 3-4mm di distanza!
+
+> **Nota:** Per risolvere questo problema esistono i sensori **Fattore 1**, che utilizzano bobine speciali (senza nucleo in ferrite) per leggere tutti i metalli alla stessa distanza massima.
 
 ### 6. Applicazioni Tipiche
 Dall'automazione generica al settore automotive.
