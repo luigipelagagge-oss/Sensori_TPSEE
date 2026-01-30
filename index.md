@@ -2,8 +2,9 @@
 
 Benvenuti. Seleziona un argomento per iniziare:
 
-1. [Classificazione e Parametri](./01-classificazione-sensori.md)  
-2. [Sensori di Posizione](./02-sensori-posizione.md)  
-3. [Sensori di Velocità](./03-sensori-velocita.md)  
-4. [Sensori di Temperatura](./04-sensori-temperatura.md)  
+1. [Classificazione e Parametri](./01-classificazione-sensori.md)
+2. [Sensori di Posizione](./02-sensori-posizione.md)
+3. [Sensori di Velocità](./03-sensori-velocita.md)
+4. [Sensori di Temperatura](./04-sensori-temperatura.md)
 5. [Vacuostati](./05-vacuostati.md)
+6. [Sensori Induttivi](./06-sensori-induttivi.md)
