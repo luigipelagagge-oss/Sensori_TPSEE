@@ -42,12 +42,14 @@ Una distinzione critica per l'installazione è il tipo di schermatura, ben visib
 *Fig. 3: Confronto tra sensore Schermato (sx) e Non Schermato (dx).*
 
 **Analisi delle linee di campo (in blu):**
-* **Schermati (Flush) - A sinistra:** Notate come le linee blu siano **confinate frontalmente**. Un anello metallico interno "scherna" il campo laterale, permettendo di incassare il sensore completamente nel metallo ("a filo") senza interferenze, garantendo la massima protezione meccanica alla testina.
-* **Non Schermati (Non-flush) - A destra:** Le linee blu si **espandono lateralmente**. Manca l'anello di schermatura, quindi il campo è più ampio e "panciuto". Questo richiede una "zona libera" attorno alla testina (altrimenti il metallo laterale verrebbe rilevato), ma garantisce una distanza di rilevamento quasi doppia.
+* **Schermati (Flush) - A sinistra:** Notate come le linee blu siano **confinate frontalmente**. Un anello metallico interno al sensore blocca l'espansione laterale del campo.
+    * *Cosa ci dice l'immagine:* Le linee blu **NON penetrano** nel blocco metallico laterale (grigio). Questo significa che il sensore ignora il supporto e rileva solo l'oggetto che passa davanti.
+* **Non Schermati (Non-flush) - A destra:** Le linee blu si **espandono lateralmente** ("panciute").
+    * *Cosa ci dice l'immagine:* Le linee occupano uno spazio maggiore. Se ci fosse metallo vicino ai lati, verrebbe intercettato dalle linee blu causando falsi rilevamenti. Per questo nel disegno vedete uno spazio vuoto (aria) attorno alla testina.
 
 **Sintesi operativa:**
-> * Scegli **Flush** se hai spazi ristretti o rischio di urti (il sensore è protetto dentro il metallo).
-> * Scegli **Non-Flush** se hai spazio libero attorno e ti serve leggere l'oggetto da più lontano.
+> * Scegli **Flush** se devi "seppellire" il sensore nel metallo (es. supporti macchina).
+> * Scegli **Non-Flush** solo se puoi garantire una zona libera attorno, per avere più portata.
 
 ### 5. Il Problema dei Materiali (Fattore di Riduzione)
 Non tutti i metalli vengono "visti" allo stesso modo. L'acciaio è il riferimento (100%).
