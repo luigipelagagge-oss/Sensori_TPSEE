@@ -36,13 +36,18 @@ Il sensore non è solo una bobina, ma un sistema complesso.
 *Fig. 2: Schema a blocchi: Oscillatore, Demodulatore, Trigger di Schmitt e Stadio di Uscita.*
 
 ### 4. Classificazione Meccanica: Flush vs Non-Flush
-Una distinzione critica per l'installazione è il tipo di schermatura.
+Una distinzione critica per l'installazione è il tipo di schermatura, ben visibile nell'andamento delle linee di campo magnetico.
 
 ![Montaggio Flush vs Non Flush](./montaggio-flush.png)
-*Fig. 3: A sinistra sensore Schermato (annegabile nel metallo), a destra Non Schermato (richiede area libera).*
+*Fig. 3: Confronto tra sensore Schermato (sx) e Non Schermato (dx).*
 
-* **Schermati (Flush):** Il campo è direzionato solo frontalmente. Possono essere montati "a filo" nel metallo. Distanza di rilevamento minore, ma meccanicamente protetti.
-* **Non Schermati (Non-flush):** Il campo esce anche lateralmente. Richiedono una "zona libera" (clearance) attorno alla testina, ma offrono una distanza di rilevamento maggiore.
+**Analisi delle linee di campo (in blu):**
+* **Schermati (Flush) - A sinistra:** Notate come le linee blu siano **confinate frontalmente**. Un anello metallico interno "scherna" il campo laterale, permettendo di incassare il sensore completamente nel metallo ("a filo") senza interferenze, garantendo la massima protezione meccanica alla testina.
+* **Non Schermati (Non-flush) - A destra:** Le linee blu si **espandono lateralmente**. Manca l'anello di schermatura, quindi il campo è più ampio e "panciuto". Questo richiede una "zona libera" attorno alla testina (altrimenti il metallo laterale verrebbe rilevato), ma garantisce una distanza di rilevamento quasi doppia.
+
+**Sintesi operativa:**
+> * Scegli **Flush** se hai spazi ristretti o rischio di urti (il sensore è protetto dentro il metallo).
+> * Scegli **Non-Flush** se hai spazio libero attorno e ti serve leggere l'oggetto da più lontano.
 
 ### 5. Il Problema dei Materiali (Fattore di Riduzione)
 Non tutti i metalli vengono "visti" allo stesso modo. L'acciaio è il riferimento (100%).
