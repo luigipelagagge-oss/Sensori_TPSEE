@@ -21,7 +21,7 @@ I sensori induttivi sono dispositivi elettronici di prossimità progettati esclu
 ### 2. Principio di Funzionamento
 Il funzionamento si basa sul principio fisico delle **Correnti di Foucault** (Eddy Currents).
 
-![Schema Principio di Funzionamento](./img/principio-induttivo.png)
+![Schema Principio di Funzionamento](./principio-induttivo.png)
 *Fig. 1: Generazione del campo elettromagnetico e induzione sul metallo.*
 
 Il ciclo avviene in fasi:
@@ -32,13 +32,13 @@ Il ciclo avviene in fasi:
 ### 3. Struttura Interna
 Il sensore non è solo una bobina, ma un sistema complesso.
 
-![Diagramma a Blocchi Sensore](./img/struttura-interna.png)
+![Diagramma a Blocchi Sensore](./struttura-interna.png)
 *Fig. 2: Schema a blocchi: Oscillatore, Demodulatore, Trigger di Schmitt e Stadio di Uscita.*
 
 ### 4. Classificazione Meccanica: Flush vs Non-Flush
 Una distinzione critica per l'installazione è il tipo di schermatura.
 
-![Montaggio Flush vs Non Flush](./img/montaggio-flush.png)
+![Montaggio Flush vs Non Flush](./montaggio-flush.png)
 *Fig. 3: A sinistra sensore Schermato (annegabile nel metallo), a destra Non Schermato (richiede area libera).*
 
 * **Schermati (Flush):** Il campo è direzionato solo frontalmente. Possono essere montati "a filo" nel metallo. Distanza di rilevamento minore, ma meccanicamente protetti.
@@ -47,7 +47,7 @@ Una distinzione critica per l'installazione è il tipo di schermatura.
 ### 5. Il Problema dei Materiali (Fattore di Riduzione)
 Non tutti i metalli vengono "visti" allo stesso modo. L'acciaio è il riferimento (100%).
 
-![Grafico Fattori di Riduzione](./img/fattore-riduzione.png)
+![Grafico Fattori di Riduzione](./fattore-riduzione.png)
 *Fig. 4: Riduzione della distanza di lettura per Alluminio e Rame rispetto all'Acciaio.*
 
 Per risolvere questo problema esistono i sensori **Fattore 1**, che utilizzano bobine speciali (senza nucleo in ferrite) per leggere tutti i metalli alla stessa distanza massima.
@@ -55,7 +55,7 @@ Per risolvere questo problema esistono i sensori **Fattore 1**, che utilizzano b
 ### 6. Applicazioni Tipiche
 Dall'automazione generica al settore automotive.
 
-![Esempi Applicativi](./img/applicazioni.png)
+![Esempi Applicativi](./applicazioni.png)
 *Fig. 5: Controllo rotazione ingranaggi e posizionamento su nastri trasportatori.*
 
 * **Rilevamento Ingranaggi:** Per contare i giri o misurare la velocità.
